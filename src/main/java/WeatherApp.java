@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+import static spark.Spark.setPort;
+
 
 public class WeatherApp {
 
@@ -17,6 +19,16 @@ public class WeatherApp {
     public static void main(String[] args)
     {
        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        ProcessBuilder process = new ProcessBuilder();
+        Integer port;
+        if (process.environment().get("PORT") != null) {
+            port = Integer.parseInt(process.environment().get("PORT"));
+        } else {
+            port = 4567;
+        }
+
+        setPort(port);
 
         String city = "Montreal";
         String contents = getUrlContents(city);
