@@ -17,6 +17,7 @@ public class WeatherApp {
     public static void main(String[] args)
     {
        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
         String city = "Montreal";
         String contents = getUrlContents(city);
         //String output = getFormat(contents);
