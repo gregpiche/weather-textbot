@@ -2,7 +2,6 @@ plugins {
     id 'java'
 }
 
-applicationName = "weather-textbot"
 group 'com.gpiche.weatherbot'
 version '1.0-SNAPSHOT'
 

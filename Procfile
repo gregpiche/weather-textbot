@@ -1,1 +1,0 @@
-web: ./build/install/todo/bin/weather-textbot
