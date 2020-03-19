@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-applicationName = "todo"
+applicationName = "weather-textbot"
 group 'com.gpiche.weatherbot'
 version '1.0-SNAPSHOT'
 
