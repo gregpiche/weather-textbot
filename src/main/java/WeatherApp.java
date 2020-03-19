@@ -86,7 +86,7 @@ public class WeatherApp {
             //Get data from JSON main object
             double temp = (double) main.get("temp");
             double feels_like = (double) main.get("feels_like");
-            long temp_min = (long) main.get("temp_min");
+            double temp_min = (double) main.get("temp_min");
             double temp_max = (double) main.get("temp_max");
             long humidity = (long) main.get("humidity");
 
