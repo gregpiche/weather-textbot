@@ -22,9 +22,10 @@ public class WeatherApp {
         String contents = getUrlContents(city);
         //String output = getFormat(contents);
         //System.out.println(output);
+        //return contents;
     }
 
-    private static String getUrlContents(String city)
+    public static String getUrlContents(String city)
     {
         //inline will store the JSON data streamed in string format
         String inline = "";
