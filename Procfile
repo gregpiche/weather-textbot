@@ -1,0 +1,1 @@
+web: ./build/install/weather-textbot/bin/weather-textbot

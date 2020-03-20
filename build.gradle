@@ -19,5 +19,7 @@ dependencies {
     compile "com.googlecode.json-simple:json-simple:1.1.1"
 }
 
+applicationName = "weather-bot"
+
 defaultTasks = ['clean']
 task stage(dependsOn: ['clean', 'installApp'])

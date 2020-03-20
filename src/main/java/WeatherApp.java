@@ -18,7 +18,7 @@ public class WeatherApp {
 
     public static void main(String[] args)
     {
-       Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         ProcessBuilder process = new ProcessBuilder();
         Integer port;
@@ -88,18 +88,15 @@ public class WeatherApp {
             JSONParser parse = new JSONParser();
             //Type caste the parsed json data in json object
             JSONObject jobj = (JSONObject) parse.parse(weather);
-
-            //System.out.println("This is the value for jobj: " + jobj);
-
             //Store the JSON object in JSON array as objects (For level 1 array element i.e main)
             //Get object for main
             JSONObject main = (JSONObject) jobj.get("main");
 
             //Get data from JSON main object
-            double temp = (double) main.get("temp");
-            double feels_like = (double) main.get("feels_like");
-            double temp_min = (double) main.get("temp_min");
-            double temp_max = (double) main.get("temp_max");
+            double temp = Math.round((double) main.get("temp"));
+            int feels_like = (int) Math.round((double) main.get("feels_like"));
+            int temp_min = Math.round((long)main.get("temp_min"));
+            int temp_max = (int) Math.round((double) main.get("temp_max"));
             long humidity = (long) main.get("humidity");
 
             //Get data for wind
