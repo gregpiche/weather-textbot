@@ -1,1 +1,1 @@
-web: java -jar ./gradle/wrapper/gradle-wrapper.jar
+web: ./src/main/java/WeatherApp.java
