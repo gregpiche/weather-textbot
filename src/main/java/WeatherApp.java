@@ -1,13 +1,18 @@
 import com.twilio.Twilio;
+import com.twilio.twiml.MessagingResponse;
+import com.twilio.twiml.messaging.Body;
+import com.twilio.twiml.messaging.Message;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javax.servlet.http.HttpServlet;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+import static spark.Spark.post;
 
-public class WeatherApp {
+public class WeatherApp extends HttpServlet {
 
     // Find your Account Sid and Token at twilio.com/user/account
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
@@ -18,11 +23,23 @@ public class WeatherApp {
     {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        String city = "Montreal";
-        String contents = getUrlContents(city);
-        //String output = getFormat(contents);
-        //System.out.println(output);
-        //return contents;
+        post("/sms", (req, res) -> {
+            String city = req.queryParams("Body");
+            String contents = getUrlContents(city);
+            res.type("application/xml");
+            Body body = new Body
+                    .Builder(contents)
+                    .build();
+            Message sms = new Message
+                    .Builder()
+                    .body(body)
+                    .build();
+            MessagingResponse twiml = new MessagingResponse
+                    .Builder()
+                    .message(sms)
+                    .build();
+            return twiml.toXml();
+        });
     }
 
     public static String getUrlContents(String city)
@@ -47,9 +64,10 @@ public class WeatherApp {
             int responsecode = conn.getResponseCode();
             System.out.println("Response code is: " + responsecode);
 
-            if (responsecode != 200)
-                throw new RuntimeException("HttpResponseCode: " + responsecode);
-            else{
+            if (responsecode != 200){
+                //throw new RuntimeException("HttpResponseCode: " + responsecode);
+                return inline = "We couldn't find that city, make sure you enter a valid city!";
+            }else{
                 //Scanner functionality will read the JSON data from the stream
                 Scanner sc = new Scanner(url.openStream());
                 while(sc.hasNext())
@@ -84,8 +102,8 @@ public class WeatherApp {
             //Get data from JSON main object
             double temp = Math.round((double) main.get("temp"));
             int feels_like = (int) Math.round((double) main.get("feels_like"));
-            int temp_min = Math.round((long)main.get("temp_min"));
-            int temp_max = (int) Math.round((double) main.get("temp_max"));
+            int temp_min = (int) Math.round((double)main.get("temp_min"));
+            double temp_max = (int) Math.round((double) main.get("temp_max"));
             long humidity = (long) main.get("humidity");
 
             //Get data for wind
