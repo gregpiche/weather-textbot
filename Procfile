@@ -1,1 +1,1 @@
-web: ./src/main/java/WeatherApp.java
+web:./src/main/java/WeatherApp.java
