@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'com.gpiche.weatherbot'
@@ -19,3 +20,6 @@ dependencies {
     compile "com.googlecode.json-simple:json-simple:1.1.1"
 }
 
+applicationName = "todo"
+mainClassName = 'WeatherApp'
+task stage(dependsOn: ['clean', 'installDist'])
