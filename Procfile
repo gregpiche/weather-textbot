@@ -1,1 +1,1 @@
-web: java -cp ./src/main/java/WeatherApp.java
+web: java -server ./src/main/java/WeatherApp.java
