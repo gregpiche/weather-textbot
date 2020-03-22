@@ -1,1 +1,1 @@
-web: java -jar /build/libs/weather-textbot-1.0-SNAPSHOT.jar
+web: java -jar ~/build/libs/weather-textbot-*.jar
