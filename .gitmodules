@@ -1,0 +1,6 @@
+[submodule "lib/twilio-java"]
+	path = lib/twilio-java
+	url = https://github.com/twilio/twilio-java.git
+[submodule "lib/json-simple"]
+	path = lib/json-simple
+	url = https://github.com/fangyidong/json-simple.git
