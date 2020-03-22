@@ -1,1 +1,1 @@
-web: java -jar ~/build/libs/weather-textbot-*.jar
+web: gradle run
