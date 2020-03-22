@@ -1,1 +1,1 @@
-web: java ~/build/classes/java/main/WeatherApp
+web: java -cp ~/build/classes/java/main/WeatherApp
