@@ -12,7 +12,7 @@ import java.util.Scanner;
 import static spark.Spark.post;
 
 
-public class WeatherApp{
+public class WeatherApp {
 
     // Find your Account Sid and Token at twilio.com/user/account
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
