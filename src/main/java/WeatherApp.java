@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Calendar;
 import java.util.Scanner;
 
 import static spark.Spark.port;
@@ -159,25 +158,27 @@ public class WeatherApp {
             String countryCode = (String) sys.get("country");
 
             //Get information from JSON object
-            int timezone = Math.toIntExact( (long)jobj.get("timezone"));
+            int timezone = Math.toIntExact((long)jobj.get("timezone"));
             String name = (String) jobj.get("name");
 
 
             //Convert from UNIX, utc to human readable time and data*/
             java.util.Date sunriseTime = new java.util.Date(sunrise *1000);
             java.util.Date sunsetTime = new java.util.Date(sunset *1000);
+            sunriseTime.setTime(sunriseTime.getTime() + timezone*1000);
+            sunsetTime.setTime(sunsetTime.getTime() + timezone*1000);
 
             //SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Calendar rise = Calendar.getInstance();
+            /*Calendar rise = Calendar.getInstance();
             rise.setTime(sunriseTime);
-            rise.add(Calendar.SECOND, timezone);
+            rise.add(Calendar.SECOND, -timezone);
 
             Calendar set = Calendar.getInstance();
             set.setTime(sunsetTime);
-            rise.add(Calendar.SECOND, timezone);
+            rise.add(Calendar.SECOND, -timezone);
             // String rise = isoFormat.format(sunriseTime);
             // String set = isoFormat.format(sunsetTime);
-            // isoFormat.setTimeZone(TimeZone.getTimeZone(zone));
+            // isoFormat.setTimeZone(TimeZone.getTimeZone(zone));*/
 
             //Formatted data
             msg =   "Weather info for " + name + ", " + countryCode + " is:\n" +
@@ -188,8 +189,8 @@ public class WeatherApp {
                     "Humidity: " + humidity + "%\n" +
                     "Wind Speed: " + windSpeed + "km/h\n" +
                     "Cloud coverage: " + cloudsAll + "%\n" +
-                    "Sunrise: " + rise.getTime() + "\n" +
-                    "Sunset: " + set.getTime();
+                    "Sunrise: " + sunriseTime + "\n" +
+                    "Sunset: " + sunsetTime;
             System.out.println(msg);
         }
         catch (Exception e){
