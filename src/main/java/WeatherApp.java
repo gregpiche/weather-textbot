@@ -112,10 +112,34 @@ public class WeatherApp {
             JSONObject main = (JSONObject) jobj.get("main");
 
             //Get data from JSON main object
-            double temp = Math.round((double) main.get("temp"));
-            int feels_like = (int) Math.round((double) main.get("feels_like"));
-            int temp_min = (int) Math.round((double)main.get("temp_min"));
-            double temp_max = (int) Math.round((double) main.get("temp_max"));
+            int temp;
+            int feels_like;
+            int temp_min;
+            int temp_max;
+            try {
+                temp = (int) Math.round((double) main.get("temp"));
+            }
+            catch (ClassCastException e){
+                temp = Math.round((long) main.get("temp"));
+            }
+            try {
+                feels_like = (int) Math.round((double) main.get("feels_like"));
+            }
+            catch (ClassCastException e){
+                feels_like = Math.round((long) main.get("feels_like"));
+            }
+            try {
+                temp_min = (int) Math.round((double)main.get("temp_min"));
+            }
+            catch (ClassCastException e){
+                temp_min = Math.round((long) main.get("temp_min"));
+            }
+            try {
+                temp_max = (int) Math.round((double) main.get("temp_max"));
+            }
+            catch (ClassCastException e){
+                temp_max = Math.round((long) main.get("temp_max"));
+            }
             long humidity = (long) main.get("humidity");
 
             //Get data for wind
