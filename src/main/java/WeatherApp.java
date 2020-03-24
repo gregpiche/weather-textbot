@@ -160,7 +160,7 @@ public class WeatherApp {
             String countryCode = (String) sys.get("country");
 
             //Get information from JSON object
-            int timezone = (int) jobj.get("timezone");
+            int timezone = Math.toIntExact((long)jobj.get("timezone"));
             String name = (String) jobj.get("name");
 
             TimeZone tz=TimeZone.getDefault();
