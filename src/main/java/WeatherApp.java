@@ -22,7 +22,6 @@ public class WeatherApp {
     public static void main(String[] args)
     {
         init();
-        stop();
     }
 
     public static void init() {
