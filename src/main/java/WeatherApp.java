@@ -21,9 +21,13 @@ public class WeatherApp {
 
     public static void main(String[] args)
     {
+        init();
+        stop();
+    }
+
+    public static void init() {
         port(getHerokuAssignedPort());
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        init();
         post("/sms", (req, res) -> {
             String city = req.queryParams("Body");
             String contents = getUrlContents(city);
@@ -41,7 +45,6 @@ public class WeatherApp {
                     .build();
             return twiml.toXml();
         });
-        stop();
     }
 
     static int getHerokuAssignedPort() {
