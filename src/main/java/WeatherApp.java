@@ -8,8 +8,8 @@ import org.json.simple.parser.JSONParser;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.OffsetDateTime;
 import java.util.Scanner;
-import java.util.TimeZone;
 
 import static spark.Spark.port;
 import static spark.Spark.post;
@@ -160,18 +160,24 @@ public class WeatherApp {
             String countryCode = (String) sys.get("country");
 
             //Get information from JSON object
-            int timezone = Math.toIntExact((long)jobj.get("timezone"));
+            int timezone = Math.toIntExact( (long)jobj.get("timezone"));
             String name = (String) jobj.get("name");
 
-            TimeZone tz=TimeZone.getDefault();
+            /*TimeZone tz=TimeZone.getDefault();
             String a[]=tz.getAvailableIDs(timezone);
             String zone = a.toString();
-            //Convert from UNIX, utc to human readable time and data
+            //Convert from UNIX, utc to human readable time and data*/
             java.util.Date sunriseTime = new java.util.Date(sunrise *1000);
             java.util.Date sunsetTime = new java.util.Date(sunset *1000);
 
             SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            isoFormat.setTimeZone(TimeZone.getTimeZone(zone));
+            String rise = isoFormat.format(sunriseTime);
+            String set = isoFormat.format(sunsetTime);
+            OffsetDateTime riseTime = OffsetDateTime.parse(rise);
+            riseTime.plusSeconds(timezone);
+            OffsetDateTime setTime = OffsetDateTime.parse(rise);
+            setTime.plusSeconds(timezone);
+            //isoFormat.setTimeZone(TimeZone.getTimeZone(zone));
 
             //Formatted data
             msg =   "Weather info for " + name + ", " + countryCode + " is:\n" +
@@ -182,8 +188,8 @@ public class WeatherApp {
                     "Humidity: " + humidity + "%\n" +
                     "Wind Speed: " + windSpeed + "km/h\n" +
                     "Cloud coverage: " + cloudsAll + "%\n" +
-                    "Sunrise: " + isoFormat.format(sunrise) + "\n" +
-                    "Sunset: " + isoFormat.format(sunset);
+                    "Sunrise: " + riseTime + "\n" +
+                    "Sunset: " + setTime;
             System.out.println(msg);
         }
         catch (Exception e){
