@@ -7,9 +7,12 @@ import org.json.simple.parser.JSONParser;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.TimeZone;
 
-import static spark.Spark.*;
+import static spark.Spark.port;
+import static spark.Spark.post;
 
 
 public class WeatherApp {
@@ -157,12 +160,18 @@ public class WeatherApp {
             String countryCode = (String) sys.get("country");
 
             //Get information from JSON object
-            long timezone = (long) jobj.get("timezone");
+            int timezone = (int) jobj.get("timezone");
             String name = (String) jobj.get("name");
 
+            TimeZone tz=TimeZone.getDefault();
+            String a[]=tz.getAvailableIDs(timezone);
+            String zone = a.toString();
             //Convert from UNIX, utc to human readable time and data
             java.util.Date sunriseTime = new java.util.Date(sunrise *1000);
             java.util.Date sunsetTime = new java.util.Date(sunset *1000);
+
+            SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            isoFormat.setTimeZone(TimeZone.getTimeZone(zone));
 
             //Formatted data
             msg =   "Weather info for " + name + ", " + countryCode + " is:\n" +
@@ -173,8 +182,8 @@ public class WeatherApp {
                     "Humidity: " + humidity + "%\n" +
                     "Wind Speed: " + windSpeed + "km/h\n" +
                     "Cloud coverage: " + cloudsAll + "%\n" +
-                    "Sunrise: " + sunriseTime + "\n" +
-                    "Sunset: " + sunsetTime;
+                    "Sunrise: " + isoFormat.format(sunrise) + "\n" +
+                    "Sunset: " + isoFormat.format(sunset);
             System.out.println(msg);
         }
         catch (Exception e){
