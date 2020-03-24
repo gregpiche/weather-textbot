@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import static spark.Spark.port;
@@ -168,11 +169,18 @@ public class WeatherApp {
             String name = (String) jobj.get("name");
 
 
-            //Convert from UNIX, utc to human readable time and data*/
+            // Convert from UNIX, utc to human readable time and data*/
             java.util.Date sunriseTime = new java.util.Date(sunrise *1000);
             java.util.Date sunsetTime = new java.util.Date(sunset *1000);
+
+            // Set timezone offset
             sunriseTime.setTime(sunriseTime.getTime() + timezone*1000);
             sunsetTime.setTime(sunsetTime.getTime() + timezone*1000);
+
+            // Format date to remove timezone
+            SimpleDateFormat ft= new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy");
+            String noTimeZoneRise = ft.format(sunriseTime);
+            String noTimeZoneSet = ft.format(sunsetTime);
 
             //SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             /*Calendar rise = Calendar.getInstance();
@@ -195,8 +203,8 @@ public class WeatherApp {
                     "Humidity: " + humidity + "%\n" +
                     "Wind Speed: " + windSpeed + "km/h\n" +
                     "Cloud coverage: " + cloudsAll + "%\n" +
-                    "Sunrise: " + sunriseTime + "\n" +
-                    "Sunset: " + sunsetTime;
+                    "Sunrise: " + noTimeZoneRise + "\n" +
+                    "Sunset: " + noTimeZoneSet;
             System.out.println(msg);
         }
         catch (Exception e){
