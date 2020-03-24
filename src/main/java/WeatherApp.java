@@ -188,8 +188,8 @@ public class WeatherApp {
                     "Humidity: " + humidity + "%\n" +
                     "Wind Speed: " + windSpeed + "km/h\n" +
                     "Cloud coverage: " + cloudsAll + "%\n" +
-                    "Sunrise: " + rise + "\n" +
-                    "Sunset: " + set;
+                    "Sunrise: " + rise.getTime() + "\n" +
+                    "Sunset: " + set.getTime();
             System.out.println(msg);
         }
         catch (Exception e){
