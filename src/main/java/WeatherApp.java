@@ -145,7 +145,13 @@ public class WeatherApp {
 
             //Get data for wind
             JSONObject wind = (JSONObject) jobj.get("wind");
-            double windSpeed = (double) wind.get("speed");
+            double windSpeed;
+            try {
+                windSpeed = (double) wind.get("speed");
+            }
+            catch (ClassCastException e){
+                windSpeed = (long) wind.get("speed");
+            }
 
             //Get data for clouds
             JSONObject clouds = (JSONObject) jobj.get("clouds");
