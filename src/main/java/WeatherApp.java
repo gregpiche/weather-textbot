@@ -19,13 +19,13 @@ public class WeatherApp {
     public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
     public static final String WEATHER_KEY = System.getenv("WEATHERAPI_KEY");
 
-    public static void main(String[] args)
+    public void main(String[] args)
     {
         init();
         stop();
     }
 
-    public static void init() {
+    public void init() {
         port(getHerokuAssignedPort());
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         post("/sms", (req, res) -> {

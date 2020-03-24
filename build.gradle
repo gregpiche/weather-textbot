@@ -10,47 +10,18 @@ jar {
     }
 }
 
-//apply plugin: 'application'
-
 mainClassName = 'WeatherApp'
-
-//group 'com.gpiche.weatherbot'
-//version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
-/*publications.withType(MavenPublication) {
-    versionMapping {
-        usage('java-api') {
-            fromResolutionResult()
-        }
-        usage('java-runtime') {
-            fromResolutionResult()
-        }
-    }
-}*/
-
-/*buildScan {
-    termsOfServiceUrl = "https://gradle.com/terms-of-service"
-    termsOfServiceAgree = "yes"
-}*/
-
 repositories {
     mavenCentral()
-    /*flatDir {
-        dirs 'lib'
-    }*/
 }
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     compile group: "com.twilio.sdk", name: "twilio", version: "7.48.0"
-    //compile group: "com.twilio.sdk", name: "twilio", version: "7.45.+"
     compile group: "com.sparkjava", name: "spark-core", version: "2.7.1"
     compile group: "org.slf4j", name: "slf4j-simple", version: "1.7.21"
     compile group: "com.googlecode.json-simple", name: "json-simple", version: "1.1.1"
 }
-
-/*applicationName = "todo"
-mainClassName = 'WeatherApp'
-task stage(dependsOn: ['clean', 'installDist'])*/
